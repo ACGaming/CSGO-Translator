@@ -1,13 +1,13 @@
-﻿<Window x:Class="CsgoTranslator.MainWindow"
+<Window x:Class="CsgoTranslator.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CsgoTranslator"
         mc:Ignorable="d"
-        Title="CSGO Translator" Height="441.813" Width="550" ResizeMode="NoResize">
+        Title="CS:GO Translator" Height="600" Width="800" ResizeMode="NoResize">
     <Grid>
-        <ListView x:Name="ChatView" HorizontalAlignment="Left" VerticalAlignment="Top" Height="355" Width="544">
+        <ListView x:Name="ChatView" HorizontalAlignment="Left" VerticalAlignment="Top" Height="515" Width="795">
             <ListView.View>
                 <GridView>
                     <GridView.ColumnHeaderContainerStyle>
@@ -16,15 +16,14 @@
                         </Style>
                     </GridView.ColumnHeaderContainerStyle>
                     <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Message" Width="330" DisplayMemberBinding="{Binding Message}" />
+                    <GridViewColumn Header="Message" Width="600" DisplayMemberBinding="{Binding Message}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBlock FontSize="22" Margin="10,362,299,10">           
+        <TextBlock FontSize="22" Margin="10,520,300,10">           
             <Hyperlink NavigateUri="https://steamcommunity.com/profiles/76561198171831059" RequestNavigate="Hyperlink_RequestNavigate"><Run Text="mad"/><InlineUIContainer>
-                    
                 </InlineUIContainer><Run Text="e by NoekNoeland"/></Hyperlink>
         </TextBlock>
-        <Button Content="Options" Margin="429,363,10,10" Click="BtnOptions_Click"/>
+        <Button Content="Options" Margin="600,520,10,5" Click="BtnOptions_Click"/>
     </Grid>
 </Window>
