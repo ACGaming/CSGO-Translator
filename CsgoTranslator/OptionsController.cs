@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,13 +17,13 @@ namespace CsgoTranslator
             }
             if (Properties.Settings.Default.Lang.Length == 0)
             {
-                Properties.Settings.Default.Lang = "en";
+                Properties.Settings.Default.Lang = "de";
                 Properties.Settings.Default.Save();
             }
         }
         static public void SaveDefault()
         {
-            Properties.Settings.Default.Lang = "en";
+            Properties.Settings.Default.Lang = "de";
             Properties.Settings.Default.Path = @"C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive";
             Properties.Settings.Default.Save();
         }
