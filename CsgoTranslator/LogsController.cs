@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace CsgoTranslator
             //check if file exists, if not return null so an error can be displayed
             if(File.Exists($@"{Properties.Settings.Default.Path}\csgo\console.log"))
             {
-                //copying console.log as console2.log so CSGO Translator can acces it.
+                //copying console.log as console2.log so CSGO Translator can access it
                 File.Copy($@"{Properties.Settings.Default.Path}\csgo\console.log", $@"{Properties.Settings.Default.Path}\csgo\console2.log");
 
                 //TODO: optimize the linereading so that not all lines are retrieved if there are more then 100
@@ -41,40 +41,47 @@ namespace CsgoTranslator
             }
         }
 
-        //function that checks all console log lines for chat messages and cleans them up. then returns 2 lists (1 with usernames, 1 with messages)
+        //function that checks all console log lines for chat messages and cleans them up, then returns 2 lists (1 with usernames, 1 with messages)
         static private List<List<string>> LineCleaner(List<string> lines)
         {
             List<string> returnNames = new List<string>();
             List<string> returnMessages = new List<string>();
 
-            foreach (string l in lines)
+            try
             {
-                //filter the lines on chat message syntax
-                if(l.Contains(" : ") && !l.Contains("  : ") && !l.Contains(" :  "))
+                foreach (string l in lines)
                 {
-                    bool name = true;
-                    foreach(string s in l.Split(':'))
+                    //filter the lines on chat message syntax
+                    if (l.Contains(" : "))
                     {
-                        if(name)
+                        bool name = true;
+                        foreach (string s in l.Split(':'))
                         {
-                            //removal of *DEAD* chat prefix
-                            if (s.Contains("*DEAD*"))
+                            if (name)
                             {
-                                returnNames.Add(s.Substring(0, s.Length - 1).Substring(7));
+                                //removal of *TOT* chat prefix
+                                if (s.Contains("*TOT*"))
+                                {
+                                    returnNames.Add(s.Substring(0, s.Length - 1).Substring(5));
+                                }
+                                else
+                                {
+                                    returnNames.Add(s.Substring(0, s.Length - 1));
+                                }
+
+                                name = false;
                             }
                             else
                             {
-                                returnNames.Add(s.Substring(0, s.Length - 1));
+                                returnMessages.Add(s.Substring(1));
                             }
-
-                            name = false;
-                        }
-                        else
-                        {
-                            returnMessages.Add(s.Substring(1));
                         }
                     }
                 }
+            }
+            catch (Exception)
+            {
+                return null;
             }
 
             return new List<List<string>>() { returnNames, returnMessages };
